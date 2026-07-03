@@ -6,7 +6,7 @@ plugins {
 
 group = "com.yonglun"
 version = "0.0.1-SNAPSHOT"
-description = "job-tracker"
+description = "itinerary-assistant"
 
 java {
     toolchain {

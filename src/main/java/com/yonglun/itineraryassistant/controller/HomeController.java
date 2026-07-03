@@ -1,24 +1,20 @@
 package com.yonglun.itineraryassistant.controller;
 
-import com.yonglun.itineraryassistant.service.JobService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/v1")
 public class HomeController {
 
-    private final JobService jobService;
-
-    public HomeController(JobService jobService) {
-        this.jobService = jobService;
-    }
-
-    @GetMapping("/")
-    public String home(Model model) {
-
-        model.addAttribute("jobs", jobService.getAllJobs());
-
-        return "index";
+    @GetMapping("/message")
+    public Map<String, String> getMessage() {
+        return Map.of(
+                "status", "success",
+                "message", "Hello from Spring Boot Backend!"
+        );
     }
 }
