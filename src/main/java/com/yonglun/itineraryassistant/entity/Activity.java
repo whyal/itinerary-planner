@@ -23,13 +23,17 @@ public class Activity {
     private String location;
     private Long longitude;
     private String notes;
+    private Long estimatedCost;
+    private String bookingLink;
 
-    public Activity(Long tripId, int day, Date time, String location, Long longitude, String notes) {
+    public Activity(Long tripId, int day, Date time, String location, Long longitude, String notes, Long estimatedCost, String bookingLink) {
         this.tripId = tripId;
         this.day = day;
         this.time = time;
         this.location = location;
         this.longitude = longitude;
         this.notes = notes;
+        this.estimatedCost = estimatedCost;
+        this.bookingLink = bookingLink;
     }
 }
