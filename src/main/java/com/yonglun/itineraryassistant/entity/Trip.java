@@ -15,17 +15,19 @@ public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long userId;
+//    private Long userId;
     private String destination;
-    private String startDate;
-    private String endDate;
-    private Long budget;
+//    private String startDate;
+//    private String endDate;
+    private Integer budget;
+    private Integer days;
 
-    public Trip(Long userId, String destination, String startDate, String endDate, Long budget) {
-        this.userId = userId;
+    public Trip(String destination, Integer budget, Integer days) {
+//        this.userId = userId;
         this.destination = destination;
-        this.startDate = startDate;
-        this.endDate = endDate;
+//        this.startDate = startDate;
+//        this.endDate = endDate;
         this.budget = budget;
+        this.days = days;
     }
 }
