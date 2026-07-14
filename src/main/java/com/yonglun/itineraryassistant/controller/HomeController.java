@@ -14,7 +14,7 @@ public class HomeController {
     public Map<String, String> getMessage() {
         return Map.of(
                 "status", "success",
-                "message", "Hello from Spring Boot Backend!"
+                "message", "Hello from Spring Boot!"
         );
     }
 }
