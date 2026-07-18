@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -21,6 +23,7 @@ public class Trip {
 //    private String endDate;
     private Integer budget;
     private Integer days;
+    private List<Activity> activityList;
 
     public Trip(String destination, Integer budget, Integer days) {
 //        this.userId = userId;
