@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 @RestController
-@RequestMapping("/api/v1/itinerary")
+@RequestMapping("/api/itinerary")
 public class ItineraryController {
     private final ItineraryService itineraryService;
 
