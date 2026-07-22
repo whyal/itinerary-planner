@@ -1,32 +1,42 @@
 package com.yonglun.itineraryassistant.controller;
 
+import com.yonglun.itineraryassistant.dto.PromptRequest;
 import com.yonglun.itineraryassistant.model.Itinerary;
-import org.springframework.ai.chat.client.ChatClient;
-// 1. Change your import to the ChatMemory interface
-import org.springframework.ai.chat.memory.ChatMemory;
+import com.yonglun.itineraryassistant.service.ItineraryService;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/api/v1/itinerary")
 public class ItineraryController {
-    private final ChatClient chatClient;
+    private final ItineraryService itineraryService;
 
-    public ItineraryController(ChatClient chatClient) {
-        this.chatClient = chatClient;
+    public ItineraryController(ItineraryService itineraryService) {
+        this.itineraryService = itineraryService;
     }
 
+    /**
+     * Standard synchronous JSON endpoint
+     */
     @PostMapping("/generate")
-    public Itinerary generateItinerary(@RequestBody ItineraryRequest request) {
-        return chatClient.prompt()
-                .user(request.prompt())
-                .advisors(advisor -> advisor.param(
-                        // 2. Use the new constant here
-                        ChatMemory.CONVERSATION_ID,
-                        request.conversationId()
-                ))
-                .call()
-                .entity(Itinerary.class);
+    public ResponseEntity<Itinerary> generateItinerary(@RequestBody PromptRequest request) {
+        Itinerary itinerary = itineraryService.generateItinerary(
+                request.prompt(),
+                request.conversationId()
+        );
+        return ResponseEntity.ok(itinerary);
     }
 
-    public record ItineraryRequest(String conversationId, String prompt) {}
+    /**
+     * Server-Sent Events (SSE) streaming endpoint
+     */
+    @PostMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> streamItinerary(@RequestBody PromptRequest request) {
+        return itineraryService.streamItinerary(
+                request.prompt(),
+                request.conversationId()
+        );
+    }
 }

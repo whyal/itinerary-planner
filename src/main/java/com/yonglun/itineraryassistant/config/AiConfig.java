@@ -36,7 +36,11 @@ public class AiConfig {
             ChatMemory chatMemory) {
 
         return builder
-                .defaultSystem("You are an expert travel concierge.")
+                .defaultSystem("You are a concise travel assistant. Generate compact itineraries strictly adhering to the requested schema. \n" +
+                        "Rules:\n" +
+                        "- No greetings, pleasantries, or closing remarks.\n" +
+                        "- Keep activity descriptions under 15 words.\n" +
+                        "- Focus strictly on location, duration, and core activity.")
                 .defaultAdvisors(
                         MessageChatMemoryAdvisor.builder(chatMemory).build(),
                         QuestionAnswerAdvisor.builder(vectorStore).build()

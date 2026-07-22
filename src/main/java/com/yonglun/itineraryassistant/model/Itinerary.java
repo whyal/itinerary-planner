@@ -1,15 +1,11 @@
 package com.yonglun.itineraryassistant.model;
 
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import java.util.List;
 
 public record Itinerary(
     String destination,
-    int durationDays,
-    String overallSummary,
-    Double estimatedTotalBudget,
-    List<DayPlan> days,
-    List<String> localEtiquetteTips,
-    List<String> recommendedPackingItems
+    List<DayPlan> days
 ) {
     public record DayPlan(
         int dayNumber,
@@ -18,11 +14,13 @@ public record Itinerary(
     ) {}
 
     public record Activity(
-        String timeOfDay,
-        String title,
-        String description,
-        String locationName,
-        Double estimatedCostUsd,
-        List<String> tags
+        @JsonPropertyDescription("Time of day, e.g., '09:00 AM'")
+        String time,
+
+        @JsonPropertyDescription("Name of the location or place")
+        String location,
+
+        @JsonPropertyDescription("Keep description under 15 words")
+        String description
     ) {}
 }
