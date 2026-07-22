@@ -18,19 +18,30 @@ repositories {
     mavenCentral()
 }
 
+extra["springAiVersion"] = "2.0.0"
+
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    compileOnly("org.projectlombok:lombok")
-    runtimeOnly("org.postgresql:postgresql")
-    annotationProcessor("org.projectlombok:lombok")
+
+    // 1. Google GenAI Chat Starter (Provides ChatModel)
+    implementation("org.springframework.ai:spring-ai-starter-model-google-genai")
+
+    // 2. Google GenAI Embedding Starter (Provides EmbeddingModel)
+    implementation("org.springframework.ai:spring-ai-starter-model-google-genai-embedding")
+
+    // 3. Core Vector Store (Provides VectorStore and SimpleVectorStore)
+    implementation("org.springframework.ai:spring-ai-vector-store")
+
+    // 4. The Vector Store Advisor (Provides QuestionAnswerAdvisor)
+    implementation("org.springframework.ai:spring-ai-vector-store-advisor")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testCompileOnly("org.projectlombok:lombok")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    testAnnotationProcessor("org.projectlombok:lombok")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.ai:spring-ai-bom:${property("springAiVersion")}")
+    }
 }
 
 tasks.withType<Test> {
